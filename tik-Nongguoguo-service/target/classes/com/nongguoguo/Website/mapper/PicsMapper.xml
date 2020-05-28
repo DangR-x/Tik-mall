@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.PicsMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Pics">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+        <result column="picurl" jdbcType="VARCHAR" property="picurl" />
+        <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    </resultMap>
+
+
+    <select id="getPicsByGoodsId" resultMap="BaseResultMap">
+        select * from t_pics where goods_id=#{goodsId}
+    </select>
+
+
+    <insert id="insert" parameterType="pics" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_pics (
+            goods_id,
+            picurl,
+            admin_id
+            ) value (
+            #{goodsId},
+            #{picurl},
+            #{adminId}
+            )
+    </insert>
+    <delete id="deleteById" parameterType="long" >
+        delete from t_pics where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="pics">
+        update t_pics r set
+        r.goods_id=#{goodsId},
+        r.picurl=#{picurl},
+        r.admin_id=#{adminId}
+        where id=#{id}
+    </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_pics where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_pics
+    </select>
+
+
+</mapper>

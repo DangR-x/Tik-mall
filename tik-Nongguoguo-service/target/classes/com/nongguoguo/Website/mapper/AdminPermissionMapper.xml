@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.AdminPermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.AdminPermission">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="admin_id" jdbcType="BIGINT" property="adminId" />
+        <result column="permission_id" jdbcType="BIGINT" property="permissionId" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+    </resultMap>
+
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_admin_permission_relation where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_admin_permission_relation
+    </select>
+
+    <insert id="insert" parameterType="adminPermission" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_admin_permission_relation (
+            admin_id,
+            permission_id,
+            type
+            ) value (
+            #{permissionId},
+            #{roleId},
+            #{type}
+            )
+    </insert>
+
+    <delete id="deleteById" parameterType="long" >
+        delete from t_admin_permission_relation where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="adminPermission">
+        update t_admin_role_relation r set
+        r.admin_id=#{adminId},
+        r.permission_id=#{permissionId},
+        r.type=#{type}
+        where id=#{id}
+    </update>
+
+</mapper>

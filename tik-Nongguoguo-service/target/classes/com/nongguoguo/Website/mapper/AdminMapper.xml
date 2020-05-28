@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.AdminMapper">
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Admin">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+        <result column="note" jdbcType="VARCHAR" property="note" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    </resultMap>
+    <select id="selectByOpenid" resultMap="BaseResultMap">
+        select * from t_admin where openid=#{openid}
+    </select>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_admin where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_admin
+    </select>
+    <select id="selectByName" resultMap="BaseResultMap">
+        select * from t_admin a where a.username=#{username}
+    </select>
+    <select id="selectMenuByAdminId" resultMap="com.nongguoguo.Website.mapper.MenuMapper.BaseResultMap">
+      select
+        r.*
+      from
+        t_admin_role_relation arr
+      left join t_role_menu_relation rmr on rmr.role_id=arr.role_id
+      left join t_menu r on r.id=rmr.menu_id
+      where arr.admin_id=#{id}
+    </select>
+
+    <update id="updateByName" parameterType="admin">
+         update t_admin a set
+         a.username=#{username},
+         a.password=#{password},
+         a.icon=#{icon},
+         a.email=#{email},
+         a.nick_name=#{nickName},
+         a.note=#{note},
+         create_time = #{createTime},
+         login_time = #{loginTime},
+         a.status=#{status},
+         a.openid=#{openid},
+         a.avatar_url=#{avatarUrl}
+         where a.id=#{id}
+    </update>
+    <update id="updateById" parameterType="admin" >
+        update t_admin a set
+         a.username=#{username},
+         a.password=#{password},
+         a.icon=#{icon},
+         a.email=#{email},
+         a.nick_name=#{nickName},
+         a.note=#{note},
+         create_time = #{createTime},
+         login_time = #{loginTime},
+         a.status=#{status},
+         a.openid=#{openid},
+         a.avatar_url=#{avatarUrl}
+         where a.id=#{id}
+    </update>
+    <delete id="deleteById" parameterType="long">
+        delete from t_admin where id=#{id}
+    </delete>
+
+    <insert id="insert" parameterType="admin" >
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_admin (
+        username,
+        password,
+        icon,
+        email,
+        nick_name,
+        note,
+        create_time,
+        login_time,
+        status,
+        openid,
+        avatar_url
+        ) value
+        (
+        #{username},
+        #{password},
+        #{icon},
+        #{email},
+        #{nickName},
+        #{note},
+        #{createTime},
+        #{loginTime},
+        #{status},
+        #{openid},
+        #{avatarUrl}
+        )
+    </insert>
+
+</mapper>

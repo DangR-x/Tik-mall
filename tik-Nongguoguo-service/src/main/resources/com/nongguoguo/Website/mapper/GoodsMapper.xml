@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.GoodsMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Goods">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="after_sale" jdbcType="VARCHAR" property="afterSale" />
+        <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+        <result column="commission" jdbcType="DECIMAL" property="commission" />
+        <result column="commission_type" jdbcType="INTEGER" property="commissionType" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+        <result column="fx_type" jdbcType="INTEGER" property="fxType" />
+        <result column="got_score" jdbcType="INTEGER" property="gotScore" />
+        <result column="got_score_type" jdbcType="INTEGER" property="gotScoreType" />
+        <result column="hidden" jdbcType="INTEGER" property="hidden" />
+        <result column="kanjia" jdbcType="TINYINT" property="kanjia" />
+        <result column="kanjia_price" jdbcType="DECIMAL" property="kanjiaPrice" />
+        <result column="limitation" jdbcType="TINYINT" property="limitation" />
+        <result column="logistics_id" jdbcType="BIGINT" property="logisticsId" />
+        <result column="max_coupons" jdbcType="INTEGER" property="maxCoupons" />
+        <result column="miaosha" jdbcType="TINYINT" property="miaosha" />
+        <result column="min_price" jdbcType="DECIMAL" property="minPrice" />
+        <result column="min_score" jdbcType="INTEGER" property="minScore" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="number_fav" jdbcType="INTEGER" property="numberFav" />
+        <result column="number_goodrequtation" jdbcType="INTEGER" property="numberGoodrequtation" />
+        <result column="number_orders" jdbcType="INTEGER" property="numberOrders" />
+        <result column="number_sells" jdbcType="INTEGER" property="numberSells" />
+        <result column="original_price" jdbcType="DECIMAL" property="originalPrice" />
+        <result column="paixu" jdbcType="INTEGER" property="paixu" />
+        <result column="pic" jdbcType="VARCHAR" property="pic" />
+        <result column="pingtuan" jdbcType="TINYINT" property="pingtuan" />
+        <result column="pingtuan_price" jdbcType="DECIMAL" property="pingtuanPrice" />
+        <result column="recommend_status" jdbcType="INTEGER" property="recommendStatus" />
+        <result column="recommend_statusstr" jdbcType="VARCHAR" property="recommendStatusstr" />
+        <result column="sell_end" jdbcType="TINYINT" property="sellEnd" />
+        <result column="sell_start" jdbcType="TINYINT" property="sellStart" />
+        <result column="shop_id" jdbcType="BIGINT" property="shopId" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="statusstr" jdbcType="VARCHAR" property="statusstr" />
+        <result column="store_alert" jdbcType="TINYINT" property="storeAlert" />
+        <result column="stores" jdbcType="BIGINT" property="stores" />
+        <result column="stores_unsale" jdbcType="TINYINT" property="storesUnsale" />
+        <result column="admin_id" jdbcType="BIGINT" property="adminId" />
+        <result column="vet_status" jdbcType="INTEGER" property="vetStatus" />
+        <result column="views" jdbcType="BIGINT" property="views" />
+        <result column="weight" jdbcType="DECIMAL" property="weight" />
+    </resultMap>
+
+    <insert id="insert" parameterType="goods" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_goods (
+        after_sale,
+        category_id,
+        commission,
+        commission_type,
+        createtime,
+        updatetime,
+        fx_type,
+        got_score,
+        got_score_type,
+        hidden,
+        kanjia,
+        limitation,
+        kanjia_price,
+        logistics_id,
+        max_coupons,
+        miaosha,
+        min_price,
+        min_score,
+        name,
+        number_fav,
+        number_goodrequtation,
+        number_orders,
+        number_sells,
+        original_price,
+        paixu,
+        pic,
+        pingtuan,
+        pingtuan_price,
+        recommend_status,
+        recommend_statusstr,
+        sell_end,
+        sell_start,
+        shop_id,
+        status,
+        statusstr,
+        store_alert,
+        stores,
+        stores_unsale,
+        admin_id,
+        vet_status,
+        views,
+        weight
+        ) value (
+        #{afterSale},
+        #{categoryId},
+        #{commission,jdbcType=DECIMAL},
+        #{commissionType},
+        #{createtime},
+        #{updatetime},
+        #{fxType},
+        #{gotScore},
+        #{gotScoreType},
+        #{hidden},
+        #{kanjia},
+        #{limitation},
+        #{kanjiaPrice},
+        #{logisticsId},
+        #{maxCoupons},
+        #{miaosha},
+        #{minPrice},
+        #{minScore},
+        #{name},
+        #{numberFav},
+        #{numberGoodrequtation},
+        #{numberOrders},
+        #{numberSells},
+        #{originalPrice},
+        #{paixu},
+        #{pic},
+        #{pingtuan},
+        #{pingtuanPrice},
+        #{recommendStatus},
+        #{recommendStatusstr},
+        #{sellEnd},
+        #{sellStart},
+        #{shopId},
+        #{status},
+        #{statusstr},
+        #{storeAlert},
+        #{stores},
+        #{storesUnsale},
+        #{adminId},
+        #{vetStatus},
+        #{views},
+        #{weight,jdbcType=DECIMAL}
+        )
+    </insert>
+    <delete id="deleteById" parameterType="long" >
+        delete from t_goods where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="goods">
+        update t_goods r set
+        after_sale=#{afterSale},
+        category_id=#{categoryId},
+        commission=#{commission},
+        commission_type=#{commissionType},
+        createtime=#{createtime},
+        updatetime=#{updatetime},
+        fx_type=#{fxType},
+        got_score= #{gotScore},
+        got_score_type= #{gotScoreType},
+        hidden= #{hidden},
+        kanjia= #{kanjia},
+        limitation= #{limitation},
+        kanjia_price= #{kanjiaPrice},
+        logistics_id= #{logisticsId},
+        max_coupons= #{maxCoupons},
+        miaosha= #{miaosha},
+        min_price= #{minPrice},
+        min_score= #{minScore},
+        name= #{name},
+        number_fav= #{numberFav},
+        number_goodrequtation= #{numberGoodrequtation},
+        number_orders= #{numberOrders},
+        number_sells= #{numberSells},
+        original_price= #{originalPrice},
+        paixu= #{paixu},
+        pic= #{pic},
+        pingtuan= #{pingtuan},
+        pingtuan_price= #{pingtuanPrice},
+        recommend_status=#{recommendStatus},
+        recommend_statusstr= #{recommendStatusstr},
+        sell_end= #{sellEnd},
+        sell_start= #{sellStart},
+        shop_id= #{shopId},
+        status=  #{status},
+        statusstr= #{statusstr},
+        store_alert= #{storeAlert},
+        stores= #{stores},
+        stores_unsale= #{storesUnsale},
+        admin_id= #{adminId},
+        vet_status= #{vetStatus},
+        views= #{views},
+        weight= #{weight}
+        where id=#{id}
+    </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_goods where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_goods
+    </select>
+
+
+</mapper>

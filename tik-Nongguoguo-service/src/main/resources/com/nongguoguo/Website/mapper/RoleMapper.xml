@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.RoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Role">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="admin_count" jdbcType="INTEGER" property="adminCount" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+    </resultMap>
+
+    <insert id="insert" parameterType="role" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_role (
+            name,
+            description,
+            admin_count,
+            create_time,
+            status,
+            sort
+            ) value (
+            #{name},
+            #{description},
+            #{adminCount},
+            #{createTime},
+            #{status},
+            #{sort}
+            )
+    </insert>
+    <delete id="deleteById" parameterType="long" >
+        delete from t_role where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="role">
+        update t_role r set
+        r.name=#{name},
+        r.description=#{description},
+        r.admin_count=#{adminCount},
+        r.create_time=#{createTime},
+        r.status=#{status},
+        r.sort=#{sort}
+        where id=#{id}
+    </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_role where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_role
+    </select>
+    <select id="getMenuByAdminId" resultType="menu">
+        select
+          m.id id,
+          m.parent_id parentId,
+          m.create_time createTime,
+          m.title title,
+          m.level level,
+          m.sort sort,
+          m.name name,
+          m.icon icon,
+          m.hidden hidden
+        from t_admin a
+        left join t_admin_role_relation ar on a.id=ar.admin_id
+        left join t_role_menu_relation rmr on ar.role_id=rmr.role_id
+        left join t_menu m on rmr.menu_id=m.id
+        where a.id=#{id}
+    </select>
+
+
+</mapper>

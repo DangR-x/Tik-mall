@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Menu">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="level" jdbcType="INTEGER" property="level" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="hidden" jdbcType="INTEGER" property="hidden" />
+    </resultMap>
+
+    <insert id="insert" parameterType="menu" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_menu (
+           parent_id,
+           create_time,
+           title,
+           level,
+           sort,
+           name,
+           icon,
+           hidden
+            ) value (
+            #{parentId},
+            #{createTime},
+            #{title},
+            #{level},
+            #{sort},
+            #{name},
+            #{icon},
+            #{hidden}
+            )
+    </insert>
+    <delete id="deleteById" parameterType="long" >
+        delete from t_menu where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="menu">
+        update t_menu m set
+        m.parent_id=#{parentId},
+        m.create_time=#{createTime},
+        m.title=#{title},
+        m.level=#{level},
+        m.sort=#{sort},
+        m.name=#{name},
+        m.icon=#{icon},
+        m.hidden=#{hidden}
+        where id=#{id}
+    </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_menu where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_menu
+    </select>
+
+
+</mapper>

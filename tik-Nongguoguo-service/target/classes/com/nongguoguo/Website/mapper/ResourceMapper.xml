@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.ResourceMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Resource">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="description" jdbcType="VARCHAR" property="description" />
+        <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    </resultMap>
+
+    <insert id="insert" parameterType="resource" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_resource (
+            createTime,
+            name,
+            url,
+            description,
+            categoryId,
+            ) value (
+            #{createTime},
+            #{name},
+            #{url},
+            #{description},
+            #{categoryId},
+            )
+    </insert>
+    <delete id="deleteById" parameterType="long" >
+        delete from t_resource where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="resource">
+        update t_resource r set
+        r.createTime=#{createTime},
+        r.name=#{name},
+        r.url=#{url},
+        r.description=#{description},
+        r.categoryId=#{categoryId},
+        where id=#{id}
+    </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_resource where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_resource
+    </select>
+    <select id="getResourceByAminId" resultType="com.nongguoguo.Website.domain.Resource">
+        select
+            r.id id,
+            r.create_time createTime,
+            r.`name` `name`,
+            r.url url,
+            r.description description,
+            r.category_id categoryId
+        from
+          t_admin_role_relation arr
+        left join t_role_resource_relation rrr on arr.role_id=rrr.role_id
+        left join t_resource r on r.id=rrr.resource_id
+        where arr.admin_id=#{id}
+    </select>
+
+</mapper>

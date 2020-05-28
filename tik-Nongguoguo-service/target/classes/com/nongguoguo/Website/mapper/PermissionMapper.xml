@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.PermissionMapper">
+     <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Permission">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="pid" jdbcType="BIGINT" property="pid" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="value" jdbcType="VARCHAR" property="value" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="uri" jdbcType="VARCHAR" property="uri" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+    </resultMap>
+
+    <select id="getPermissionByAdminId" resultMap="BaseResultMap">
+        select p.*  from t_admin_role_relation arr
+        left join t_role_permission_relation rpr on arr.role_id=rpr.role_id
+        left join t_permission p on rpr.permission_id=p.id
+        where arr.admin_id=#{id}
+    </select>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_permission where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_permission
+    </select>
+
+    <insert id="insert" parameterType="com.nongguoguo.Website.domain.Permission" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_permission (
+            pid,
+            name,
+            value,
+            icon,
+            type,
+            uri,
+            status,
+            create_time,
+            sort
+            ) value (
+            #{pid},
+            #{name},
+            #{value},
+            #{icon},
+            #{type},
+            #{uri},
+            #{status},
+            #{createTime},
+            #{sort}
+            )
+    </insert>
+
+    <delete id="deleteById" parameterType="long" >
+        delete from t_permission where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="com.nongguoguo.Website.domain.Permission">
+        update t_permission r set
+        r.pid=#{pid},
+        r.name=#{name},
+         r.value=#{value},
+         r.icon=#{icon},
+         r.type=#{type},
+         r.uri=#{uri},
+         r.status=#{status},
+         r.create_time=#{createTime},
+        r.sort=#{sort}
+        where id=#{id}
+    </update>
+
+</mapper>

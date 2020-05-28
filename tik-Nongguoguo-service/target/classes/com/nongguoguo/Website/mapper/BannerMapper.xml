@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.BannerMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.Banner">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="businessId" jdbcType="INTEGER" property="businessId" />
+        <result column="dateAdd" jdbcType="TIMESTAMP" property="dateAdd" />
+        <result column="dateUpdate" jdbcType="TIMESTAMP" property="dateUpdate" />
+        <result column="paixu" jdbcType="INTEGER" property="paixu" />
+        <result column="picUrl" jdbcType="VARCHAR" property="picUrl" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="statusStr" jdbcType="VARCHAR" property="statusStr" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="type" jdbcType="VARCHAR" property="type" />
+        <result column="userId" jdbcType="BIGINT" property="userId" />
+    </resultMap>
+
+
+    <select id="selectByType" resultMap="BaseResultMap">
+        select * from t_banners where type=#{type}
+    </select>
+
+
+    <insert id="insert" parameterType="banner" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_banners (
+            businessId,
+            dateAdd,
+            dateUpdate,
+            paixu,
+            picUrl,
+            status,
+            statusStr,
+            title,
+            type,
+            userId
+            ) value (
+            #{businessId},
+            #{dateAdd},
+            #{dateUpdate},
+            #{paixu},
+            #{picUrl},
+            #{status},
+            #{statusStr},
+            #{title},
+            #{type},
+            #{userId}
+            )
+    </insert>
+    <delete id="deleteById" parameterType="long" >
+        delete from t_banners where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="role">
+        update t_banners r set
+        businessId=#{businessId},
+        dateAdd=#{dateAdd},
+        dateUpdate=#{dateUpdate},
+        paixu=#{paixu},
+        picUrl=#{picUrl},
+        status=#{status},
+        statusStr=#{statusStr},
+        title=#{title},
+        type=#{type},
+        userId=#{userId}
+        where id=#{id}
+    </update>
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_banners where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_banners
+    </select>
+
+
+
+</mapper>

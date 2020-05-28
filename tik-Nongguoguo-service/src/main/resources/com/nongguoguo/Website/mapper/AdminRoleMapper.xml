@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : mapper接口的完全限定名 -->
+<mapper namespace="com.nongguoguo.Website.mapper.AdminRoleMapper">
+
+    <resultMap id="BaseResultMap" type="com.nongguoguo.Website.domain.AdminRole">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="admin_id" jdbcType="BIGINT" property="adminId" />
+        <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    </resultMap>
+
+
+    <select id="selectByAdminId" resultMap="BaseResultMap">
+        select * from t_admin_role_relation where admin_id=#{adminId}
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from t_admin_role_relation where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from t_admin_role_relation
+    </select>
+
+    <insert id="insert" parameterType="adminRole" keyProperty="id" useGeneratedKeys="true" >
+        insert into t_admin_role_relation (
+            admin_id,
+            role_id
+            ) value (
+            #{adminId},
+            #{roleId}
+            )
+    </insert>
+
+    <delete id="deleteById" parameterType="long" >
+        delete from t_admin_role_relation where id=#{id}
+    </delete>
+    <update id="updateById" parameterType="adminRole">
+        update t_admin_role_relation r set
+        r.admin_id=#{adminId},
+        r.role_id=#{roleId},
+        where id=#{id}
+    </update>
+
+</mapper>
